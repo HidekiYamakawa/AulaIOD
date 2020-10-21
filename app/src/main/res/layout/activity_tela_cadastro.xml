@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".activity.TelaCadastro">
+
+    <ImageButton
+        android:id="@+id/btn_voltar"
+        android:layout_width="90dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#FFFFFF"
+        android:onClick="botaoVoltarClick"
+        android:tint="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/abc_vector_test" />
+
+    <TextView
+        android:id="@+id/txt_tcadastrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="@string/titulo_cadastrar"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txt_nome"
+        android:layout_width="275dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="55dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_tcadastrar" />
+
+    <EditText
+        android:id="@+id/txt_email"
+        android:layout_width="275dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_nome" />
+
+    <EditText
+        android:id="@+id/txt_senha"
+        android:layout_width="275dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_email" />
+
+    <EditText
+        android:id="@+id/txt_confsenha"
+        android:layout_width="275dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_senha" />
+
+    <TextView
+        android:id="@+id/txt_temail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/email"
+        android:textColor="#292929"
+        app:layout_constraintBottom_toTopOf="@+id/txt_email"
+        app:layout_constraintStart_toEndOf="@+id/txt_nome"
+        app:layout_constraintStart_toStartOf="@+id/txt_email" />
+
+    <TextView
+        android:id="@+id/txt_tsenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/senha"
+        android:textColor="#292929"
+        app:layout_constraintBottom_toTopOf="@+id/txt_senha"
+        app:layout_constraintStart_toStartOf="@+id/txt_senha" />
+
+    <TextView
+        android:id="@+id/txt_tconfsenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/confirmar_senha"
+        android:textColor="#292929"
+        app:layout_constraintBottom_toTopOf="@+id/txt_confsenha"
+        app:layout_constraintStart_toStartOf="@+id/txt_confsenha" />
+
+    <TextView
+        android:id="@+id/txt_tnome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/nome"
+        android:textColor="#292929"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_nome"
+        app:layout_constraintStart_toStartOf="@+id/txt_nome" />
+
+    <Button
+        android:id="@+id/btn_cadastrar"
+        android:layout_width="174dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="36dp"
+        android:text="@string/titulo_cadastrar"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_confsenha" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
