@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.umc.iod.aulaiod.R;
+import com.umc.iod.aulaiod.model.Usuario;
 import com.umc.iod.aulaiod.viewmodel.TelaCadastroViewModel;
 
 public class TelaCadastro extends AppCompatActivity {
@@ -32,6 +33,19 @@ public class TelaCadastro extends AppCompatActivity {
         Intent intencao = new Intent();
         intencao.setClass(getApplicationContext(), TelaPrincipal.class);
         startActivity(intencao);
+    }
+
+    public void botaoCadastrarClick(View view) {
+        Log.i(this.getClass().getName(), "Dentro do botaoCadastrarClick");
+
+        EditText campoEmail = findViewById(R.id.txt_email);
+        EditText campoSenha = findViewById(R.id.txt_senha);
+
+        String email = campoEmail.getText().toString();
+        String senha = campoSenha.getText().toString();
+
+        Usuario usuario = new Usuario(email, senha);
+        viewModel.cadastrar(usuario);
     }
 
 }

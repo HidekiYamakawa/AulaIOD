@@ -11,4 +11,5 @@
     <string name="nome">Nome</string>
     <string name="status_contador">O contador esta em</string>
     <string name="botao_contador">Contador</string>
+    <string name="msg_erro">            </string>
 </resources>

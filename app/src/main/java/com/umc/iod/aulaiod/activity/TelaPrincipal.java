@@ -45,18 +45,6 @@ public class TelaPrincipal extends AppCompatActivity {
         }
     }
 
-    public void botaoA(View view) {
-        Intent intencao = new Intent();
-        intencao.setAction(Intent.ACTION_VIEW);
-        intencao.addCategory(Intent.CATEGORY_BROWSABLE);
-        if(intencao.resolveActivity(getPackageManager()) != null) {
-            Log.i(this.getClass().getName(),"Conseguiu resolver o intent implicito");
-            startActivity(intencao);
-        } else {
-            Log.w(this.getClass().getName(),"Não conseguiu resolver o intent implicito");
-        }
-    }
-
     @Override
     protected void onStart() {
         super.onStart();

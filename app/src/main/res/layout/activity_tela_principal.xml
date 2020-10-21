@@ -51,13 +51,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textoLogin" />
 
-    <Button
-        android:id="@+id/botao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="botaoA"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="622dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
