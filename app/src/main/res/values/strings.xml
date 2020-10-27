@@ -11,5 +11,6 @@
     <string name="nome">Nome</string>
     <string name="status_contador">O contador esta em</string>
     <string name="botao_contador">Contador</string>
-    <string name="msg_erro">            </string>
+    <string name="msg_erro">Mensagem de erro</string>
+    <string name="email_erro">Email já cadastrado</string>
 </resources>
