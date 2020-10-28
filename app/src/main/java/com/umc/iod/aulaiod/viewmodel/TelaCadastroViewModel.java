@@ -1,32 +1,52 @@
 package com.umc.iod.aulaiod.viewmodel;
 
+import android.app.Application;
 import android.util.Log;
 
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
+import com.umc.iod.aulaiod.R;
 import com.umc.iod.aulaiod.model.Usuario;
 import com.umc.iod.aulaiod.repository.UsuarioRepository;
+import com.umc.iod.aulaiod.util.ThreadManager;
 
-public class TelaCadastroViewModel extends ViewModel {
+public class TelaCadastroViewModel extends AndroidViewModel {
 
     private UsuarioRepository usuarioRepository;
-    private MutableLiveData<Integer> errorMessageCode = new MutableLiveData<>();
 
-    public TelaCadastroViewModel() {
-        usuarioRepository = new UsuarioRepository();
+    private MutableLiveData<Integer> mensagemErroId = new MutableLiveData<>();
+    private MutableLiveData<Usuario> usuarioCadastrado = new MutableLiveData<>();
+
+    public TelaCadastroViewModel(Application application) {
+        super(application);
+        usuarioRepository = new UsuarioRepository(application);
     }
 
-    public MutableLiveData<Integer> getErrorMessageCode() {
-        return errorMessageCode;
+    public MutableLiveData<Integer> getMensagemErroId() {
+        return mensagemErroId;
+    }
+
+    public MutableLiveData<Usuario> getUsuarioCadastrado() {
+        return usuarioCadastrado;
+    }
+
+    public void validarCadastro(Usuario usuario) {
+        Log.d(getClass().getName(), "Dentro do validarCadastro");
+        ThreadManager.getExecutor().execute(() -> {
+            if (usuarioRepository.verificaEmailExistente(usuario.getEmail())) {
+                mensagemErroId.postValue(R.string.email_erro);
+            } else {
+                mensagemErroId.postValue(null);
+            }
+        });
     }
 
     public void cadastrar(Usuario usuario) {
         Log.d(getClass().getName(), "Dentro do cadastrar");
-        if(usuarioRepository.cadastrar(usuario) == null) {
-            errorMessageCode.postValue(1);
-        } else {
-            errorMessageCode.postValue(null);
-        }
+        ThreadManager.getExecutor().execute(() -> {
+            Usuario u = usuarioRepository.cadastrar(usuario);
+            usuarioCadastrado.postValue(u);
+        });
     }
 }

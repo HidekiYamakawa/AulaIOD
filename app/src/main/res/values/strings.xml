@@ -13,4 +13,5 @@
     <string name="botao_contador">Contador</string>
     <string name="msg_erro">Mensagem de erro</string>
     <string name="email_erro">Email já cadastrado</string>
+    <string name="feed">Feed de Notícias</string>
 </resources>

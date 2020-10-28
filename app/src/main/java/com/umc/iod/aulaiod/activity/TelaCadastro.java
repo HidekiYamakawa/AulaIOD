@@ -27,25 +27,12 @@ public class TelaCadastro extends AppCompatActivity {
         setContentView(R.layout.activity_tela_cadastro);
         Log.i(this.getClass().getName(), "Dentro do onCreate");
 
-        ViewModelProvider vmp = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory());
+        ViewModelProvider vmp = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication()));
         viewModel = vmp.get(TelaCadastroViewModel.class);
         Log.d(this.getClass().getName(), "Associou a view model " + viewModel + " a atividade " + this);
 
-        viewModel.getErrorMessageCode().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer numeroDeErro) {
-                TextView mensagemErro = (TextView) findViewById(R.id.txt_msgErro);
-                if(numeroDeErro != null) {
-                    mensagemErro.setText(R.string.email_erro);
-                    mensagemErro.setVisibility(View.VISIBLE);
-                    Log.d(getClass().getName(), "Mensagem de erro foi alterada para " + mensagemErro);
-                } else {
-                    mensagemErro.setText(R.string.msg_erro);
-                    mensagemErro.setVisibility(View.INVISIBLE);
-                    Log.d(getClass().getName(), "Mensagem de erro foi alterada para " + mensagemErro);
-                }
-            }
-        });
+        viewModel.getMensagemErroId().observe(this, observadorMensagemErro);
+        viewModel.getUsuarioCadastrado().observe(this, observadorUsuarioCadastrado);
     }
 
     public void botaoVoltarClick(View view) {
@@ -65,7 +52,38 @@ public class TelaCadastro extends AppCompatActivity {
         String senha = campoSenha.getText().toString();
 
         Usuario usuario = new Usuario(email, senha);
+        viewModel.validarCadastro(usuario);
         viewModel.cadastrar(usuario);
     }
+
+    private Observer<Integer> observadorMensagemErro = new Observer<Integer>() {
+        @Override
+        public void onChanged(Integer mensagemErroId) {
+            Log.d(getClass().getName(), "Dentro do observadorMensagemErro, houve mudança no live data");
+
+            TextView mensagemErro = (TextView) findViewById(R.id.txt_msgErro);
+
+            if(mensagemErroId != null) {
+                mensagemErro.setText(R.string.email_erro);
+                mensagemErro.setVisibility(View.VISIBLE);
+            } else {
+                mensagemErro.setText(R.string.msg_erro);
+                mensagemErro.setVisibility(View.INVISIBLE);
+            }
+        }
+    };
+
+    private Observer<Usuario> observadorUsuarioCadastrado = new Observer<Usuario>() {
+        @Override
+        public void onChanged(Usuario usuario) {
+            if(usuario != null) {
+                Log.d(getClass().getName(), "Dentro do observadorUsuarioCadastrado, houve mudança no live data, o id é " + usuario.getId());
+
+                Intent intencao = new Intent();
+                intencao.setClass(getApplicationContext(), TelaFeed.class);
+                startActivity(intencao);
+            }
+        }
+    };
 
 }
