@@ -23,6 +23,18 @@ public class UsuarioRepository {
         return existe;
     }
 
+    public boolean verificaSincronizacaoUsuario(Long id) {
+        Log.d(getClass().getName(), "Dentro do verificaSincronizacaoUsuario");
+        Boolean sinc = usuarioDAO.verificarSincronizacaoUsuario(id);
+        return sinc;
+    }
+
+    public boolean verificaLogin(String email, String senha) {
+        Log.d(getClass().getName(), "Dentro do verificaLogin");
+        Boolean sucesso = usuarioDAO.verificarLogin(email,senha);
+        return sucesso;
+    }
+
     public Usuario cadastrar(Usuario usuario) {
         Log.d(getClass().getName(), "Dentro do cadastrar");
 

@@ -14,4 +14,6 @@
     <string name="msg_erro">Mensagem de erro</string>
     <string name="email_erro">Email já cadastrado</string>
     <string name="feed">Feed de Notícias</string>
+    <string name="notificacao_sincronizacao">Seu email ainda não foi validado. Verifique sua caixa de entrada do email pelo link de validação.</string>
+    <string name="credenciais_invalidas">Credendicais Invalidas</string>
 </resources>

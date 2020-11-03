@@ -66,11 +66,12 @@
         android:id="@+id/btn_entrar"
         android:layout_width="105dp"
         android:layout_height="52dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="16dp"
+        android:onClick="botaoEntrarClick"
         android:text="@string/titulo_entrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_senha" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_credenciais_invalidas" />
 
     <TextView
         android:id="@+id/txt_link_esqueci"
@@ -95,4 +96,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/abc_vector_test" />
+
+    <TextView
+        android:id="@+id/txt_credenciais_invalidas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/credenciais_invalidas"
+        android:textColor="#F44336"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_senha" />
 </androidx.constraintlayout.widget.ConstraintLayout>
