@@ -27,10 +27,6 @@ public class TelaLogin extends AppCompatActivity {
 
         ViewModelProvider vmp = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication()));
         viewModel = vmp.get(TelaLoginViewModel.class);
-        Log.d(this.getClass().getName(), "Associou a view model " + viewModel + " a atividade " + this);
-
-        viewModel.getMensagemErroId().observe(this, observadorMensagemErro);
-        viewModel.getUsuarioLogado().observe(this, observadorUsuarioLogado);
     }
 
     public void botaoVoltarClick(View view) {
@@ -40,7 +36,7 @@ public class TelaLogin extends AppCompatActivity {
         startActivity(intencao);
     }
 
-    public void botaoEntrarClick(View view) {
+    public void botaoLoginClick(View view) {
         Log.i(this.getClass().getName(), "Dentro do botaoEntrarClick");
 
         EditText campoEmail = findViewById(R.id.txt_email);
@@ -50,34 +46,25 @@ public class TelaLogin extends AppCompatActivity {
         String senha = campoSenha.getText().toString();
 
         Usuario usuario = new Usuario(email, senha);
-        viewModel.validarLogin(usuario);
+
+        viewModel.autenticarUsuario(usuario).observe(this, observadorUsuarioLogado);
     }
 
-    private Observer<Integer> observadorMensagemErro = new Observer<Integer>() {
-        @Override
-        public void onChanged(Integer mensagemErroId) {
-            Log.d(getClass().getName(), "Dentro do observadorMensagemErro, houve mudança no live data");
-
-            TextView mensagemErro = (TextView) findViewById(R.id.txt_credenciais_invalidas);
-
-            if(mensagemErroId != null) {
-                mensagemErro.setText(R.string.credenciais_invalidas);
-                mensagemErro.setVisibility(View.VISIBLE);
-            } else {
-                mensagemErro.setText("");
-                mensagemErro.setVisibility(View.INVISIBLE);
-            }
-        }
-    };
 
     private Observer<Usuario> observadorUsuarioLogado = new Observer<Usuario>() {
         @Override
         public void onChanged(Usuario usuario) {
-            if(usuario != null) {
-                Log.d(getClass().getName(), "Dentro do observadorUsuarioCadastrado, houve mudança no live data, o id é " + usuario.getId());
+            if(usuario == null) {
+                Log.d(getClass().getName(), "Não está logado, usuario é null");
+                TextView mensagemErro = findViewById(R.id.txt_credenciais_invalidas);
+                mensagemErro.setText(getResources().getString(R.string.credenciais_invalidas));
+                mensagemErro.setVisibility(TextView.VISIBLE);
+            } else {
+                Log.d(getClass().getName(), "Está logado, vai para tela feed, com id = " + usuario.getId());
 
                 Intent intencao = new Intent();
                 intencao.setClass(getApplicationContext(), TelaFeed.class);
+                intencao.putExtra("usuarioId", usuario.getId());
                 startActivity(intencao);
             }
         }

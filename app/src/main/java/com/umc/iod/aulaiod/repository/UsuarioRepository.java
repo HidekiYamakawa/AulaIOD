@@ -3,6 +3,8 @@ package com.umc.iod.aulaiod.repository;
 import android.app.Application;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+
 import com.umc.iod.aulaiod.model.Usuario;
 import com.umc.iod.aulaiod.repository.local.LocalDatabase;
 import com.umc.iod.aulaiod.repository.local.UsuarioDAO;
@@ -23,16 +25,9 @@ public class UsuarioRepository {
         return existe;
     }
 
-    public boolean verificaSincronizacaoUsuario(Long id) {
-        Log.d(getClass().getName(), "Dentro do verificaSincronizacaoUsuario");
-        Boolean sinc = usuarioDAO.verificarSincronizacaoUsuario(id);
-        return sinc;
-    }
-
-    public boolean verificaLogin(String email, String senha) {
-        Log.d(getClass().getName(), "Dentro do verificaLogin");
-        Boolean sucesso = usuarioDAO.verificarLogin(email,senha);
-        return sucesso;
+    public LiveData<Usuario> buscaPorEmailSenha(Usuario usuario) {
+        Log.d(getClass().getName(), "Dentro do buscaPorEmailSenha");
+        return usuarioDAO.buscaPorEmailSenha(usuario.getEmail(),usuario.getSenha());
     }
 
     public Usuario cadastrar(Usuario usuario) {
@@ -46,5 +41,18 @@ public class UsuarioRepository {
         }
         Log.d(getClass().getName(), "Não cadastrou o usuario de email: " + usuario.getEmail());
         return null;
+    }
+
+    public void atualizar(Usuario usuario) {
+        Log.d(getClass().getName(), "Dentro do atualizar");
+        usuarioDAO.atualizar(usuario);
+    }
+
+    public LiveData<Usuario> pesquisarPorIdLive(long id) {
+        return usuarioDAO.consultarPorIdLive(id);
+    }
+
+    public void deletar(Usuario usuario) {
+        usuarioDAO.deletar(usuario);
     }
 }

@@ -81,6 +81,7 @@ public class TelaCadastro extends AppCompatActivity {
 
                 Intent intencao = new Intent();
                 intencao.setClass(getApplicationContext(), TelaFeed.class);
+                intencao.putExtra("usuarioId", usuario.getId());
                 startActivity(intencao);
             }
         }

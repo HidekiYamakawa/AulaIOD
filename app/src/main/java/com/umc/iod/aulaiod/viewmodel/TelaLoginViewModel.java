@@ -2,9 +2,12 @@ package com.umc.iod.aulaiod.viewmodel;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import com.umc.iod.aulaiod.R;
 import com.umc.iod.aulaiod.model.Usuario;
@@ -31,16 +34,9 @@ public class TelaLoginViewModel extends AndroidViewModel {
         return usuarioLogado;
     }
 
-    public void validarLogin(Usuario usuario) {
-        Log.d(getClass().getName(), "Dentro do validarLogin");
-        ThreadManager.getExecutor().execute(() -> {
-            if (usuarioRepository.verificaLogin(usuario.getEmail(),usuario.getSenha())) {
-                mensagemErroId.postValue(null);
-                usuarioLogado.postValue(usuario);
-            } else {
-                mensagemErroId.postValue(R.string.credenciais_invalidas);
-                usuarioLogado.postValue(null);
-            }
-        });
+    public LiveData<Usuario> autenticarUsuario(Usuario usuario) {
+        Log.d(getClass().getName(), "Dentro do autenticarUsuario - " + usuario.getEmail() + " " + usuario.getSenha());
+        LiveData<Usuario> usuarioLogado = usuarioRepository.buscaPorEmailSenha(usuario);
+        return usuarioLogado;
     }
 }
