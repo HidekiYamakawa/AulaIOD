@@ -8,13 +8,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.umc.iod.aulaiod.R;
+import com.umc.iod.aulaiod.model.Postagem;
 import com.umc.iod.aulaiod.model.Usuario;
 import com.umc.iod.aulaiod.repository.UsuarioRepository;
 import com.umc.iod.aulaiod.viewmodel.TelaCadastroViewModel;
 import com.umc.iod.aulaiod.viewmodel.TelaFeedViewModel;
+
+import java.util.List;
 
 public class TelaFeed extends AppCompatActivity {
 
@@ -35,6 +39,7 @@ public class TelaFeed extends AppCompatActivity {
 
         viewModel.carregarUsuarioLogado(id);
         viewModel.getUsuarioLogado().observe(this, observadorUsuarioLogado);
+        viewModel.getPosts().observe(this, observadorPosts);
     }
 
     public Usuario getUsuarioLogado() {
@@ -64,6 +69,24 @@ public class TelaFeed extends AppCompatActivity {
                     Log.i(getClass().getName(), "Dentro do observadorUsuarioLogado - não está sincronizado");
                     TextView aviso = findViewById(R.id.txt_notificacao_sincronizacao);
                     aviso.setVisibility(TextView.VISIBLE);
+                }
+            }
+        }
+    };
+
+    private Observer<List<Postagem>> observadorPosts = new Observer<List<Postagem>>() {
+        @Override
+        public void onChanged(List<Postagem> listaPosts) {
+            if (listaPosts != null) {
+
+                for (Postagem postagem : listaPosts) {
+                    // EXIBIR NA TELA
+                    LinearLayout layout = findViewById(R.id.postLinearLayout);
+
+                    TextView textViewPost = new TextView(getApplicationContext());
+                    textViewPost.setText(postagem.getTitulo() + "\r\n" + postagem.getTexto() + "\r\n\r\n");
+
+                    layout.addView(textViewPost);
                 }
             }
         }
