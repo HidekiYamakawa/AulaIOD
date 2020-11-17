@@ -1,11 +1,14 @@
 package com.umc.iod.aulaiod.repository;
 
+import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.umc.iod.aulaiod.model.Postagem;
+import com.umc.iod.aulaiod.repository.local.LocalDatabase;
+import com.umc.iod.aulaiod.repository.local.PostagemDAO;
 import com.umc.iod.aulaiod.repository.remoto.PostagemService;
 import com.umc.iod.aulaiod.repository.remoto.RetrofitConfig;
 import com.umc.iod.aulaiod.util.ThreadManager;
@@ -19,15 +22,19 @@ import retrofit2.Response;
 public class PostagemRepository {
 
     private PostagemService postagemService;
+    private PostagemDAO postagemDAO;
+    private LocalDatabase database;
     private MutableLiveData<List<Postagem>> listaPostagem = new MutableLiveData<>();
 
-    public PostagemRepository() {
+    public PostagemRepository(Application context) {
         this.postagemService = new RetrofitConfig().getPostagemService();
+        database = LocalDatabase.getInstance(context);
+        postagemDAO = database.postagemDAO();
     }
 
-    public MutableLiveData<List<Postagem>> getListaPostagem() {
+    public LiveData<List<Postagem>> getListaPostagem() {
         atualizarPosts();
-        return listaPostagem;
+        return postagemDAO.listarTodos();
     }
 
     private void atualizarPosts() {
@@ -37,8 +44,12 @@ public class PostagemRepository {
                 Response<List<Postagem>> respostaRemota = chamadaRemota.execute();
 
                 if (respostaRemota.isSuccessful()) {
+                    Log.d(getClass().getName(), "Chamada para a API bem sucedida, vamos atualizar o cache");
                     List<Postagem> listaPostagemApi = respostaRemota.body();
-                    listaPostagem.postValue(listaPostagemApi); // Atualizar o LiveData!!
+
+                    for (Postagem postagem : listaPostagemApi) {
+                        postagemDAO.inserir(postagem);
+                    }
                 } else {
                     Log.e(getClass().getName(), "Erro na resposta da requisição com API");
                 }

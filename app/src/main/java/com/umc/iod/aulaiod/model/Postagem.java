@@ -1,13 +1,28 @@
 package com.umc.iod.aulaiod.model;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 @Entity
 public class Postagem {
+
+    @PrimaryKey(autoGenerate = true)
     private long id;
     private String data;
     private String titulo;
     private String texto;
+
+    public Postagem() {
+    }
+
+    @Ignore
+    public Postagem(long id, String data, String titulo, String texto) {
+        this.id = id;
+        this.data = data;
+        this.titulo = titulo;
+        this.texto = texto;
+    }
 
     public long getId() {
         return id;
