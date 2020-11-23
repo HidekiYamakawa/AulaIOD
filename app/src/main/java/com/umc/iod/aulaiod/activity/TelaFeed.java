@@ -54,6 +54,7 @@ public class TelaFeed extends AppCompatActivity {
     private Observer<Usuario> observadorUsuarioLogado = new Observer<Usuario>() {
         @Override
         public void onChanged(Usuario usuario) {
+            Log.i(getClass().getName(), "Dentro do observadorUsuarioLogado");
             if(usuario == null) {
                 Log.i(getClass().getName(), "Dentro do observadorUsuarioLogado - usuario é NULL");
                 Intent intencao = new Intent();
@@ -77,11 +78,12 @@ public class TelaFeed extends AppCompatActivity {
     private Observer<List<Postagem>> observadorPosts = new Observer<List<Postagem>>() {
         @Override
         public void onChanged(List<Postagem> listaPosts) {
+            Log.i(getClass().getName(), "Dentro do observadorPosts");
             if (listaPosts != null) {
+                LinearLayout layout = findViewById(R.id.postLinearLayout);
+                layout.removeAllViews();
 
                 for (Postagem postagem : listaPosts) {
-                    // EXIBIR NA TELA
-                    LinearLayout layout = findViewById(R.id.postLinearLayout);
 
                     TextView textViewPost = new TextView(getApplicationContext());
                     textViewPost.setText(postagem.getTitulo() + "\r\n" + postagem.getTexto() + "\r\n\r\n");
