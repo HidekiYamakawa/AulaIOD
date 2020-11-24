@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.umc.iod.aulaiod">
-    
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.TelaFeed"></activity>
+        <service
+            android:name=".service.NotificacaoUsuarioService"
+            android:exported="false"></service>
+
+        <activity android:name=".activity.TelaFeed" />
         <activity android:name=".activity.TelaContador">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_DOCUMENT" />

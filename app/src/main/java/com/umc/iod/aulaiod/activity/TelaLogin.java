@@ -12,7 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.umc.iod.aulaiod.R;
+import com.umc.iod.aulaiod.model.Notificacao;
 import com.umc.iod.aulaiod.model.Usuario;
+import com.umc.iod.aulaiod.service.NotificacaoUsuarioService;
 import com.umc.iod.aulaiod.viewmodel.TelaLoginViewModel;
 
 public class TelaLogin extends AppCompatActivity {
@@ -61,6 +63,11 @@ public class TelaLogin extends AppCompatActivity {
                 mensagemErro.setVisibility(TextView.VISIBLE);
             } else {
                 Log.d(getClass().getName(), "Está logado, vai para tela feed, com id = " + usuario.getId());
+
+                Intent intencaoServicoNotificacao = new Intent();
+                intencaoServicoNotificacao.setClass(getApplicationContext(), NotificacaoUsuarioService.class);
+                intencaoServicoNotificacao.putExtra("usuarioId", usuario.getId());
+                startService(intencaoServicoNotificacao);
 
                 Intent intencao = new Intent();
                 intencao.setClass(getApplicationContext(), TelaFeed.class);

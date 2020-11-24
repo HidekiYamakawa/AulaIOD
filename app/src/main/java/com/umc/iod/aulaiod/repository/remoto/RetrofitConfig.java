@@ -1,5 +1,7 @@
 package com.umc.iod.aulaiod.repository.remoto;
 
+import com.umc.iod.aulaiod.model.Notificacao;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -16,5 +18,8 @@ public class RetrofitConfig {
 
     public PostagemService getPostagemService () {
         return retrofit.create(PostagemService.class);
+    }
+    public NotificacaoService getNotificacaoService () {
+        return retrofit.create(NotificacaoService.class);
     }
 }

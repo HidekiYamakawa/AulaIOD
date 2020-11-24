@@ -38,6 +38,7 @@ public class PostagemRepository {
     }
 
     private void atualizarPosts() {
+        Log.i(getClass().getName(), "Dentro do atualizarPosts");
         ThreadManager.getExecutor().execute(() ->{
             try {
                 Call<List<Postagem>> chamadaRemota = postagemService.listarPosts();
